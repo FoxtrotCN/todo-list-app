@@ -1,0 +1,47 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+*.dist-info/
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Editor/IDE specific files
+.idea
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Environment variables
+.env
+.env.*
+*.ini
+
+# Database files
+*.sqlite3
+*.db
+data.sqlite
+
+# Log files
+*.log
+
+# Build artifacts
+dist/
+build/
+
+# Uploaded files (if applicable)
+/uploads/
+
+# Test reports
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Jupyter Notebook files (if used)
+.ipynb_checkpoints/
