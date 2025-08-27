@@ -5,6 +5,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { api } from "../api/client";
 import { Todo } from "../types/todo";
 import { RootStackParamList } from "../../App";
+import {ToDoCard} from "../components/ToDoCard";
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, "Home">;
 
@@ -70,41 +71,11 @@ export default function HomeScreen() {
                 data={todos}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
-                    <TouchableOpacity
+                    <ToDoCard
+                        todo={item}
                         onPress={() => navigation.navigate("EditTodo", { todo: item })}
-                        style={{
-                            padding: 15,
-                            marginVertical: 8,
-                            borderRadius: 10,
-                            backgroundColor: item.completed ? "#d4edda" : "#fff3cd",
-                            shadowColor: "#000",
-                            shadowOffset: { width: 0, height: 2 },
-                            shadowOpacity: 0.2,
-                            shadowRadius: 4,
-                            elevation: 3,
-                        }}
-                    >
-                        <Text style={{ fontSize: 16, fontWeight: "bold", marginBottom: 4 }}>
-                            {item.title}
-                        </Text>
-                        <Text style={{ fontSize: 14, color: "#555" }}>{item.description}</Text>
-                        <Text style={{ marginTop: 6, fontWeight: "600" }}>
-                            {item.completed ? "Completado" : "Pendiente"}
-                        </Text>
-
-                        <TouchableOpacity
-                            onPress={() => handleDelete(item.id)}
-                            style={{
-                                marginTop: 8,
-                                backgroundColor: "#dc3545",
-                                padding: 8,
-                                borderRadius: 5,
-                                alignItems: "center",
-                            }}
-                        >
-                            <Text style={{ color: "#fff", fontWeight: "bold" }}>Eliminar</Text>
-                        </TouchableOpacity>
-                    </TouchableOpacity>
+                        onDelete={() => handleDelete(item.id)}
+                    />
                 )}
             />
         </View>
