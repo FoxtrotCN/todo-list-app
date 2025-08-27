@@ -15,7 +15,7 @@ export default function HomeScreen() {
 
     const fetchTodos = async () => {
         try {
-            const res = await api.get<Todo[]>("/todos"); // sin slash al final
+            const res = await api.get<Todo[]>("/todos");
             setTodos(res.data);
         } catch (err) {
             console.error(err);
@@ -89,7 +89,7 @@ export default function HomeScreen() {
                         </Text>
                         <Text style={{ fontSize: 14, color: "#555" }}>{item.description}</Text>
                         <Text style={{ marginTop: 6, fontWeight: "600" }}>
-                            {item.completed ? "✅ Completado" : "❌ Pendiente"}
+                            {item.completed ? "Completado" : "Pendiente"}
                         </Text>
 
                         <TouchableOpacity

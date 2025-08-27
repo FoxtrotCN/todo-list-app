@@ -19,7 +19,7 @@ export default function EditTodoScreen() {
 
     const handleUpdate = async () => {
         try {
-            await api.put(`/todos/${todo.id}`, { title, description, completed }); // sin slash
+            await api.put(`/todos/${todo.id}`, { title, description, completed });
             navigation.goBack();
         } catch (err) {
             console.error(err);
@@ -52,14 +52,14 @@ export default function EditTodoScreen() {
                 style={{ backgroundColor: "#28a745", padding: 15, borderRadius: 8, marginTop: 10 }}
                 onPress={handleUpdate}
             >
-                <Text style={{ color: "#fff", textAlign: "center", fontWeight: "bold" }}>✅ Guardar cambios</Text>
+                <Text style={{ color: "#fff", textAlign: "center", fontWeight: "bold" }}>Guardar cambios</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
                 style={{ marginTop: 15, padding: 12, borderRadius: 8, backgroundColor: "#6c757d" }}
                 onPress={() => navigation.goBack()}
             >
-                <Text style={{ color: "#fff", textAlign: "center", fontWeight: "bold" }}>🔙 Cancelar</Text>
+                <Text style={{ color: "#fff", textAlign: "center", fontWeight: "bold" }}>Cancelar</Text>
             </TouchableOpacity>
         </View>
     );

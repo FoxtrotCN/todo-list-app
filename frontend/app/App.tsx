@@ -4,13 +4,14 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./src/screens/HomeScreen";
 import AddTodoScreen from "./src/screens/AddToDoScreen";
 import EditTodoScreen from "./src/screens/EditToDoScreen";
+import {Todo} from "./src/types/todo";
 
 
 
 export type RootStackParamList = {
   Home: undefined;
   AddTodo: undefined;
-  EditTodo: undefined;
+  EditTodo: { todo: Todo };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
