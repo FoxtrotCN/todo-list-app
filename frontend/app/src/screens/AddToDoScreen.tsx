@@ -14,7 +14,7 @@ export default function AddTodoScreen() {
 
     const handleAddTodo = async () => {
         try {
-            await api.post("/", { title, description, completed: false });
+            await api.post("/todos", { title, description, completed: false }); // sin slash
             navigation.goBack();
         } catch (err) {
             console.error(err);

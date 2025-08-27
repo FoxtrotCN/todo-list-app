@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState, useCallback } from "react";
+import { View, Text, FlatList, TouchableOpacity, Alert } from "react-native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { api } from "../api/client";
 import { Todo } from "../types/todo";
-import { RootStackParamList } from "../../App"
-import { useFocusEffect } from "@react-navigation/native";
-import { useCallback } from "react";
+import { RootStackParamList } from "../../App";
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, "Home">;
 
@@ -17,7 +15,7 @@ export default function HomeScreen() {
 
     const fetchTodos = async () => {
         try {
-            const res = await api.get<Todo[]>("/");
+            const res = await api.get<Todo[]>("/todos"); // sin slash al final
             setTodos(res.data);
         } catch (err) {
             console.error(err);
@@ -32,11 +30,28 @@ export default function HomeScreen() {
         }, [])
     );
 
+    const handleDelete = async (id: number) => {
+        Alert.alert("Eliminar ToDo", "¿Estás seguro?", [
+            { text: "Cancelar", style: "cancel" },
+            {
+                text: "Eliminar",
+                style: "destructive",
+                onPress: async () => {
+                    try {
+                        await api.delete(`/todos/${id}`);
+                        fetchTodos();
+                    } catch (err) {
+                        console.error(err);
+                    }
+                },
+            },
+        ]);
+    };
+
     if (loading) return <Text>Cargando...</Text>;
 
     return (
         <View style={{ flex: 1, padding: 20 }}>
-            {/* 🔹 Botón para ir a crear un ToDo */}
             <TouchableOpacity
                 style={{
                     backgroundColor: "#007bff",
@@ -51,12 +66,12 @@ export default function HomeScreen() {
                 </Text>
             </TouchableOpacity>
 
-            {/* 🔹 Lista de ToDos */}
             <FlatList
                 data={todos}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
-                    <View
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("EditTodo", { todo: item })}
                         style={{
                             padding: 15,
                             marginVertical: 8,
@@ -76,7 +91,20 @@ export default function HomeScreen() {
                         <Text style={{ marginTop: 6, fontWeight: "600" }}>
                             {item.completed ? "✅ Completado" : "❌ Pendiente"}
                         </Text>
-                    </View>
+
+                        <TouchableOpacity
+                            onPress={() => handleDelete(item.id)}
+                            style={{
+                                marginTop: 8,
+                                backgroundColor: "#dc3545",
+                                padding: 8,
+                                borderRadius: 5,
+                                alignItems: "center",
+                            }}
+                        >
+                            <Text style={{ color: "#fff", fontWeight: "bold" }}>Eliminar</Text>
+                        </TouchableOpacity>
+                    </TouchableOpacity>
                 )}
             />
         </View>
