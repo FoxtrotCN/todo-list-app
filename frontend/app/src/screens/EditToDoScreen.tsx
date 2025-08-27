@@ -19,7 +19,7 @@ export default function EditTodoScreen() {
 
     const handleUpdate = async () => {
         try {
-            await api.put(`/todos/${todo.id}`, { title, description, completed });
+            await api.put(`/${todo.id}`, { title, description, completed });
             navigation.goBack();
         } catch (err) {
             console.error(err);

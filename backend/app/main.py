@@ -4,7 +4,7 @@ from .api import endpoints
 
 
 app = FastAPI()
-app.include_router(endpoints.router)
+app.include_router(endpoints.router, prefix="/api/v1/todos", tags=["todos"])
 
 
 @app.on_event("startup")

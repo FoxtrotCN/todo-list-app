@@ -15,7 +15,7 @@ export default function HomeScreen() {
 
     const fetchTodos = async () => {
         try {
-            const res = await api.get<Todo[]>("/todos");
+            const res = await api.get<Todo[]>("/");
             setTodos(res.data);
         } catch (err) {
             console.error(err);
@@ -38,7 +38,7 @@ export default function HomeScreen() {
                 style: "destructive",
                 onPress: async () => {
                     try {
-                        await api.delete(`/todos/${id}`);
+                        await api.delete(`/${id}`);
                         fetchTodos();
                     } catch (err) {
                         console.error(err);
